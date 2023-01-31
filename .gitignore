@@ -1,0 +1,80 @@
+# Python
+# ===============================
+# Byte-code files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+# Common names for virtual environment directories
+venv/
+.venv/
+env/
+.env/
+
+# Distribution / build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Installer logs
+pip-log.txt
+
+# MyPy cache
+.mypy_cache/
+
+# Pytest cache
+.pytest_cache/
+
+# Ruff linter cache
+.ruff_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# IDE specific files
+# ===============================
+# VS Code
+# .vscode/ - Uncomment if you want to ignore VS Code workspace settings.
+#            Often shared for consistent development environment.
+
+# PyCharm / IntelliJ IDEA
+.idea/
+
+# Operating System specific files
+# ===============================
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Editor backup files
+# ===============================
+# Vim
+*.swp
+*.swo
+
+# Emacs
+*~
+#*#
+
+# Project specific outputs / temporary files
+# ===============================
+# If the converter generates any temporary files or caches that should not
+# be committed to version control, list them here.
+# For example, if the tool creates a 'output/' directory for generated HTML
+# files during development/testing that are not meant to be part of the repo:
+# output/
+#
+# Or if it creates a log file:
+# converter.log
+#
+# Based on the project description, there are no explicit output directories
+# or temporary files specified for the project itself to ignore by default.
+# Users will typically specify their own output paths for the generated HTML.
