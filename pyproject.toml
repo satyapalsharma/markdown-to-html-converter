@@ -1,0 +1,140 @@
+```toml
+# pyproject.toml
+
+# This file is the standard way to define Python project metadata, build system,
+# and tool configurations. It replaces older files like setup.py, setup.cfg,
+# and requirements.txt for many purposes.
+
+# --- Project Metadata ---
+# The `[project]` table contains all the essential metadata about your project.
+# This information is used by packaging tools (like pip) and package indexes (like PyPI).
+[project]
+name = "markdown-to-html-converter"
+version = "0.1.0"
+description = "CLI tool that converts Markdown files to styled HTML with syntax highlighting"
+readme = "README.md"
+requires-python = ">=3.8" # Minimum Python version required to run this project.
+license = { text = "MIT" } # Specifies the project's license. Using a common license like MIT is good practice.
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }, # Replace with actual author details.
+]
+keywords = [
+    "markdown",
+    "html",
+    "converter",
+    "cli",
+    "syntax-highlighting",
+    "python",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha", # Indicates the maturity level of the project.
+    "Environment :: Console", # Specifies that it's a console application.
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License", # Must match the license field above.
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Text Processing :: Markup",
+    "Topic :: Utilities",
+]
+
+# Project dependencies. These are the packages required for the project to run.
+# `markdown`: The core library for parsing Markdown.
+# `Pygments`: Used for syntax highlighting of code blocks.
+# `typer[all]`: A modern, easy-to-use library for building command-line interfaces.
+#               `[all]` includes `rich` for beautiful terminal output and `shellingham`
+#               for shell completion.
+# `importlib_resources`: For accessing package data files (like `assets/default.css`)
+#                        in a way that works correctly when the package is installed.
+#                        It's built-in as `importlib.resources` from Python 3.9+,
+#                        but this backport ensures compatibility with Python 3.8.
+dependencies = [
+    "markdown>=3.4.0",
+    "Pygments>=2.10.0",
+    "typer[all]>=0.9.0",
+    "importlib_resources>=5.0.0; python_version < '3.9'",
+]
+
+# --- Entry Points for CLI ---
+# The `[project.scripts]` table defines command-line entry points.
+# When the package is installed, `markdown-converter` will be available as a command,
+# executing the `app` object from `src.main` module.
+[project.scripts]
+markdown-converter = "src.main:app"
+
+# --- Build System Configuration ---
+# This section specifies the build backend used to create distributable packages
+# (like wheels or source distributions). Setuptools is the most common choice.
+[build-system]
+requires = ["setuptools>=61.0"] # Minimum version of setuptools required.
+build-backend = "setuptools.build_meta"
+
+# --- Tool-Specific Configurations ---
+# This section allows configuring various development tools.
+
+# --- Setuptools Configuration ---
+# Configuration specific to setuptools, particularly for finding packages.
+[tool.setuptools.packages.find]
+where = ["src"] # Tells setuptools to look for packages inside the 'src' directory.
+
+# --- Black (Code Formatter) Configuration ---
+# Black is an opinionated code formatter that ensures consistent code style.
+# `line-length`: Maximum line length. 88 is Black's default.
+# `target-version`: Specifies the Python versions Black should target for syntax.
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+
+# --- isort (Import Sorter) Configuration ---
+# isort sorts imports alphabetically and separates them into sections.
+# `profile = "black"`: Ensures compatibility with Black's formatting rules.
+# `line_length`: Matches Black's line length.
+# `known_first_party`: Tells isort which modules belong to *this* project,
+#                      so it can group them correctly.
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["src"]
+
+# --- MyPy (Static Type Checker) Configuration ---
+# MyPy checks your Python code for type errors.
+# `python_version`: Specifies the Python version for type checking.
+# `strict = true`: Enables a comprehensive set of type checking rules,
+#                  highly recommended for production-quality code.
+# `ignore_missing_imports`: Temporarily ignores missing type stubs for third-party libraries.
+#                           This can be set to `false` once all dependencies have stubs
+#                           or you provide your own.
+# `exclude`: Directories to exclude from type checking.
+[tool.mypy]
+python_version = "3.8"
+strict = true
+ignore_missing_imports = true
+exclude = ["venv/", "docs/", "build/", "dist/"]
+
+# --- pytest (Testing Framework) Configuration ---
+# Configuration for the pytest test runner.
+[tool.pytest.ini_options]
+# `pythonpath`: Adds the 'src' directory to the Python path during tests,
+#               allowing direct imports like `from converter import ...`.
+pythonpath = ["src"]
+# `addopts`: Additional command-line options passed to pytest by default.
+#   `--strict-markers`: Ensures all test markers are registered.
+#   `--cov=src`: Enables coverage reporting for the 'src' directory.
+#   `--cov-report=term-missing`: Shows missing lines in the terminal coverage report.
+addopts = "--strict-markers --cov=src --cov-report=term-missing"
+
+# --- Coverage.py Configuration ---
+# Configuration for the coverage tool, used with pytest.
+[tool.coverage.run]
+source = ["src"] # Specifies which directories to include in coverage analysis.
+branch = true    # Enables branch coverage, which is more thorough.
+
+[tool.coverage.report]
+fail_under = 90 # Fails the coverage check if overall coverage is below 90%.
+show_missing = true # Shows lines that were not covered.
+```
